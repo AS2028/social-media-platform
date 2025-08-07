@@ -1,11 +1,18 @@
+# Base image
 FROM node:18
 
+# Set working directory
 WORKDIR /app
 
+# Copy dependencies
 COPY package*.json ./
-RUN npm install
 
+# Install dependencies (safe mode)
+RUN npm install --legacy-peer-deps
+
+# Copy rest of the code
 COPY . .
 
-EXPOSE 6001
-CMD ["node", "index.js"]
+# Start app
+CMD ["npm", "start"]
+
