@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+
+  server:
+    build: ./server
+    ports:
+      - "6001:6001"
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URL: mongodb://mongo:27017/socialmedia
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
